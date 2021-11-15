@@ -1,6 +1,3 @@
-# Blackjack
-A python CLI game of blackjack. It has some houserules. Those are explained in the readme
-
 #Houserules
 
 -The dealer starts with collecting the bets of all players.
@@ -14,8 +11,8 @@ A python CLI game of blackjack. It has some houserules. Those are explained in t
 -Calculate who has more points.
 -Give bets back accordingly.
 
-When player wins: twice the bet
-When player has blackjack:  tripple the bet
-When the game is a tie: return the normal bets to everyone
-When lost to dealer: half the bet
-When bust, none of the bet
+When player wins: twice the bet.
+When player has blackjack:  tripple the bet.
+When the game is a tie: return the normal bets to everyone.
+When lost to dealer: half the bet.
+When bust, none of the bet.
