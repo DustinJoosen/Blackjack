@@ -1,0 +1,12 @@
+dealer gives 2 card to player, and 2 to self.
+
+let player decide to hit or stand. If hit, give another card.
+calculate if standing or hitting for self.
+
+Repeat last two lines until either a player is bust, blackjack or both players stand.
+At any point, when either side is bust, let the game know.
+
+When the player wins, they get twice the bet. If blackjack, thrice.
+When the game is a tie, everybody gets back their bet.
+When lost to dealer, give half to dealer.
+When bust, give all to dealer
