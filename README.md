@@ -4,6 +4,7 @@
     -do something with the bet
     -splitting
     -check the cards you or dealer have open
+    -edge cases
 
 #Houserules<br/>
 
@@ -20,6 +21,5 @@
 
 When player wins: twice the bet.<br/>
 When player has blackjack:  tripple the bet.<br/>
-When the game is a tie: return the normal bets to everyone.<br/>
-When lost to dealer: half the bet.<br/>
+When lost or tied to dealer: half the bet.<br/>
 When bust, none of the bet.<br/>

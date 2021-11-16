@@ -3,13 +3,28 @@ from Player import Player
 from Dealer import Dealer
 import time
 
+total_credits = 100
 
-def game():
-	bet = input("How much are you going to bet this round?\n>>>")
+
+def get_bet():
+	try:
+		bet = int(input("How much are you going to bet this round?\n>>>"))
+		return bet
+	except ValueError:
+		print("Only numeric values are allowed")
+		return get_bet()
+
+
+def session(name):
+	global total_credits
+
+	bet = get_bet()
+	total_credits -= bet
+
 	deck = Deck()
 
 	dealer = Dealer("Dealer", deck)
-	player = Player("Dustin", bet)
+	player = Player(name, bet)
 
 	print("\nDealer dealt two cards to player:")
 	player.cards.append(deck.NewCard())
@@ -54,6 +69,7 @@ def game():
 	dealer_val = dealer.CardsValue()
 
 	winner = None
+
 	#if either had busted
 	if dealer_val > 21 or player_val > 21:
 		if dealer_val > 21:
@@ -61,18 +77,39 @@ def game():
 		if player_val > 21:
 			winner = dealer
 	else:
-		if dealer_val > player_val:
+		if dealer_val < player_val:
+			winner = player
+		else:
 			winner = dealer
 
 	#let the user know who won
 	time.sleep(2)
 	print("And the winner is....")
 	time.sleep(2)
-	print(f"{winner}!")
+	print(f"{winner.name}!")
 
-	print(f"Player cards value:\t{player_val}")
-	print(f"Dealer cards value:\t{dealer_val}")
+	print(f"{player.name} cards value:\t{player_val}")
+	print(f"{dealer.name} cards value:\t{dealer_val}\n")
+
+	#handle the bet
+	if winner == player:
+		if player_val == 21:
+			total_credits += bet * 3
+			print(f"You got {bet * 3} credits. Your total is now {total_credits}")
+		else:
+			total_credits += bet * 2
+			print(f"You got {bet * 2} credits. Your total is now {total_credits}")
+	else:
+		if player_val < 21:
+			total_credits += int(bet / 2)
+			print(f"You lost {int(bet / 2)} credits. Your total is now {total_credits}")
+		else:
+			print(f"You lost your bet, {bet} credits. Your total is now {total_credits}")
 
 
 if __name__ == "__main__":
-	game()
+	print("Welcome to Blackjack!")
+	name = input("What do you wish to be called this session?\n>>>")
+	print("\nYou will start out the session with 100 credits")
+
+	session(name)
