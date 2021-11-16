@@ -1,10 +1,11 @@
 ###Todos
 
-    -make the aces have double values(1 and 11)    
-    -do something with the bet
     -splitting
     -check the cards you or dealer have open
     -edge cases
+    
+###Bugs
+    -when two aces appear, only one can remove 10
 
 #Houserules<br/>
 

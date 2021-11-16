@@ -32,7 +32,10 @@ class Card:
 		self.is_open = False
 
 	def __str__(self):
-		return f"{self.variant} {self.value} ({values[self.value]})"
+		if not self.value == 'Ace':
+			return f"{self.variant} {self.value} ({values[self.value]})"
+		else:	
+			return f"{self.variant} {self.value} (1/11)"
 
 
 #the cards that come out of the box, shuffled by the dealer

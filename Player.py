@@ -9,6 +9,8 @@ class Player:
 		self.has_standed = False
 		self.cards = []
 
+		self.ace_used = False
+
 	def ShowOpenCards(self):
 		print(f"Open cards of {self.name}:")
 		for card in self.cards:
@@ -19,6 +21,9 @@ class Player:
 
 		for card in self.cards:
 			value += int(card_values[card.value])
+
+			if card.value == 'Ace' and not self.ace_used:
+				value += 10
 
 		return value
 
@@ -33,5 +38,8 @@ class Player:
 			self.has_standed = True
 			print(f"{self.name} has Blackjack!\n")
 		elif total_val > 21:
-			self.has_standed = True
-			print(f"{self.name} is Bust!\n")
+			if not self.ace_used:
+				self.ace_used = True
+			else:
+				self.has_standed = True
+				print(f"{self.name} is Bust!\n")
