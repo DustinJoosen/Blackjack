@@ -1,4 +1,5 @@
 from Player import Player
+from random import randrange
 
 
 class Dealer(Player):
@@ -11,14 +12,16 @@ class Dealer(Player):
 		self.has_standed = False
 
 	def HitOrStand(self):
+		if self.has_standed:
+			return
+
 		value = self.CardsValue()
-		if value <= 15:
+		if value <= randrange(14, 18):
 			#hitting
 			print(f"{self.name} hit another card!")
 			self.cards.append(self.deck.NewCard())
 		else:
 			#standing
-			print(f"{self.name} stands down!")
-			self.has_standed = True
+			self.Stand()
 			return
 

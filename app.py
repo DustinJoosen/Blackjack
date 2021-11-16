@@ -1,6 +1,7 @@
 from Deck import Deck
 from Player import Player
 from Dealer import Dealer
+import time
 
 
 def game():
@@ -20,8 +21,8 @@ def game():
 	dealer.cards.append(deck.NewCard())
 	dealer.ShowOpenCards()
 
-	going = True
-	while going:
+	playing = True
+	while playing:
 		if not player.has_standed:
 
 			total_val = player.CardsValue()
@@ -33,20 +34,45 @@ def game():
 				new_card = deck.NewCard()
 				player.cards.append(new_card)
 				print(str(new_card) + "\n")
-			elif choice == "S":
-				print(f"{player.name} stands down!\n")
-				player.has_standed = True
 
-		dealer.HitOrStand()
+				player.CheckValue()
+
+			elif choice == "S":
+				player.Stand()
+
+		if not dealer.has_standed:
+			dealer.HitOrStand()
+			dealer.CheckValue()
 
 		if player.has_standed and dealer.has_standed:
-			going = False
+			playing = False
 
 	print("\nBoth teams are done!")
-	print(f"player points:{player.CardsValue()}\ndealer points:{dealer.CardsValue()}")
+
+	#check who won
+	player_val = player.CardsValue()
+	dealer_val = dealer.CardsValue()
+
+	winner = None
+	#if either had busted
+	if dealer_val > 21 or player_val > 21:
+		if dealer_val > 21:
+			winner = player
+		if player_val > 21:
+			winner = dealer
+	else:
+		if dealer_val > player_val:
+			winner = dealer
+
+	#let the user know who won
+	time.sleep(2)
+	print("And the winner is....")
+	time.sleep(2)
+	print(f"{winner}!")
+
+	print(f"Player cards value:\t{player_val}")
+	print(f"Dealer cards value:\t{dealer_val}")
 
 
 if __name__ == "__main__":
-	# game()
-	deck = Deck()
-	deck.PrintDeck()
+	game()
