@@ -3,8 +3,6 @@ from Player import Player
 from Dealer import Dealer
 import time
 
-total_credits = 100
-
 
 def get_bet():
 	try:
@@ -15,26 +13,21 @@ def get_bet():
 		return get_bet()
 
 
-def session(name):
-	global total_credits
-
+def play_round(player, dealer, deck):
 	bet = get_bet()
-	total_credits -= bet
-
-	deck = Deck()
-
-	dealer = Dealer("Dealer", deck)
-	player = Player(name, bet)
+	player.total_credits -= bet
 
 	print("\nDealer dealt two cards to player:")
 	player.cards.append(deck.NewCard())
 	player.cards.append(deck.NewCard())
 	player.ShowOpenCards()
+	player.CheckValue()
 
 	print("\nDealer dealt two cards to themself:")
 	dealer.cards.append(deck.NewCard())
 	dealer.cards.append(deck.NewCard())
 	dealer.ShowOpenCards()
+	dealer.CheckValue()
 
 	playing = True
 	while playing:
@@ -94,22 +87,46 @@ def session(name):
 	#handle the bet
 	if winner == player:
 		if player_val == 21:
-			total_credits += bet * 3
-			print(f"You got {bet * 3} credits. Your total is now {total_credits}")
+			player.total_credits += bet * 3
+			print(f"You got {bet * 3} credits. Your total is now {player.total_credits}")
 		else:
-			total_credits += bet * 2
-			print(f"You got {bet * 2} credits. Your total is now {total_credits}")
+			player.total_credits += bet * 2
+			print(f"You got {bet * 2} credits. Your total is now {player.total_credits}")
 	else:
 		if player_val < 21:
-			total_credits += int(bet / 2)
-			print(f"You lost {int(bet / 2)} credits. Your total is now {total_credits}")
+			player.total_credits += int(bet / 2)
+			print(f"You lost {int(bet / 2)} credits. Your total is now {player.total_credits}")
 		else:
-			print(f"You lost your bet, {bet} credits. Your total is now {total_credits}")
+			print(f"You lost your bet, {bet} credits. Your total is now {player.total_credits}")
 
 
 if __name__ == "__main__":
 	print("Welcome to Blackjack!")
 	name = input("What do you wish to be called this session?\n>>>")
-	print("\nYou will start out the session with 100 credits")
+	print(f"\nWelcome {name}. You will start out the session with 100 credits")
 
-	session(name)
+	deck = Deck()
+
+	dealer = Dealer("Dealer", deck)
+	player = Player(name)
+
+	round_num = 0
+	playing = True
+	while playing:
+		round_num += 1
+
+		player.PrepForNewRound()
+		dealer.PrepForNewRound()
+
+		print(f"\nRound {round_num}")
+
+		play_round(player, dealer, deck)
+		print("___________________________")
+
+		#handling stopping the game
+		continue_playing = input("Do you want to play another round? (Y/N)\n>>>")
+		if continue_playing != "Y":
+			playing = False
+
+	print("\nThanks for playing blackjack!")
+	#print the results of the session here, like a table of your results

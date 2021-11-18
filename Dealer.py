@@ -3,13 +3,9 @@ from random import randrange
 
 
 class Dealer(Player):
-	def __init__(self, name, deck, bet=None):
-		super().__init__(name, bet)
-
-		self.deck = deck
-
-		self.cards = []
-		self.has_standed = False
+	def __init__(self, name, deck):
+		super().__init__(name)
+		self.__deck = deck
 
 	def HitOrStand(self):
 		if self.has_standed:
@@ -19,7 +15,7 @@ class Dealer(Player):
 		if value <= randrange(14, 18):
 			#hitting
 			print(f"{self.name} hit another card!")
-			self.cards.append(self.deck.NewCard())
+			self.cards.append(self.__deck.NewCard())
 		else:
 			#standing
 			self.Stand()
