@@ -2,7 +2,6 @@
 
     -splitting
     -check the cards you or dealer have open
-    -edge cases
     
 ###Bugs
     -when two aces appear, only one can remove 10

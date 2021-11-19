@@ -47,6 +47,9 @@ def play_round(player, dealer, deck):
 
 			elif choice == "S":
 				player.Stand()
+			else:
+				print(f"'{choice}' is not a valid choice")
+				continue
 
 		if not dealer.has_standed:
 			dealer.HitOrStand()
@@ -80,6 +83,7 @@ def play_round(player, dealer, deck):
 	print("And the winner is....")
 	time.sleep(2)
 	print(f"{winner.name}!")
+	time.sleep(2)
 
 	print(f"{player.name} cards value:\t{player_val}")
 	print(f"{dealer.name} cards value:\t{dealer_val}\n")
